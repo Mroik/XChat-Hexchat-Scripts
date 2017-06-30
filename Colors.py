@@ -17,6 +17,6 @@ def colors2(word, word_eol, userdata):
     xchat.command("say "+newcol)
     return xchat.EAT_ALL
 
-xchat.hook_command("FAINA",colors,help="manda il messaggio colorato")
-xchat.hook_command("MIRKO",colors2,help="come FAINA ma senza colori")
+xchat.hook_command("FAINA",colors,help="Colors the text before sending")
+xchat.hook_command("MIRKO",colors2,help="Same format of FAINA but without colors")
 xchat.prnt("Color script loaded")

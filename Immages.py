@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 __module_name__ = "Image"
 __module_version__ = "1.0"
-__module_description__ = "Stampa varie immagini"
+__module_description__ = "Sends Ascii arts"
 __module_author__ = "Mroik"
 import xchat
 import string

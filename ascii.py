@@ -10,16 +10,18 @@ import xchat
 import string
 import os
 
+user_on_machine=""
+
 def coloring(text):
     text = text.replace("+",chr(3)+"9,9+")
     text = text.replace("-",chr(3)+"1,1-")
     xchat.command("say "+text)
 
 def asciilist(word,word_eol,userdata):
-    lista=os.listdir("/home/mirko/myascii/ascii")
+    lista=os.listdir("/home/"+user_on_machine+"/myascii/ascii")
     for x in lista:
         print(x)
-    lista=os.listdir("/home/mirko/myascii/ascii2")
+    lista=os.listdir("/home/"+user_on_machine+"/myascii/ascii2")
     for x in lista:
         print(x)
     return xchat.EAT_ALL
@@ -32,8 +34,8 @@ def update(word,word_eol,userdata):
 xchat.hook_command("ASCUP",update)
 
 def ascii(word,word_eol,userdata):
-    if os.path.exists("/home/mirko/myascii/ascii/"+word[1]+".txt"):
-        text = open("/home/mirko/myascii/ascii/"+word[1]+".txt")
+    if os.path.exists("/home/"+user_on_machine+"/myascii/ascii/"+word[1]+".txt"):
+        text = open("/home/"+user_on_machine+"/myascii/ascii/"+word[1]+".txt")
         for line in text:
             xchat.command("say "+chr(3)+"9,1"+line)
         text.close
@@ -43,7 +45,7 @@ def ascii(word,word_eol,userdata):
 xchat.hook_command("ASCII",ascii)
 
 def ascii2(word,word_eol,userdata):
-    text = open("/home/mirko/myascii/ascii2/"+word[1]+".txt")
+    text = open("/home/"+user_on_machine+"/myascii/ascii2/"+word[1]+".txt")
     for line in text:
         line = line.replace("+",chr(3)+"9,9+")
         line = line.replace("-",chr(3)+"1,1-")
