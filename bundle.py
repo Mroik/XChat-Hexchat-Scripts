@@ -64,10 +64,11 @@ def what_time(word,word_eol,userdata):
 
 def msg_color(word,word_eol,userdata):
 	msg_input=xchat.get_info('inputbox')
-	if (word[0] == "65293") and (msg_input!=None) and (msg_input[0]!="/"): #65293 is the return key
-		xchat.command("SAY "+chr(3)+"4,15 ✘✔✘ "+chr(3)+"9,1 "+msg_input+" "+chr(3)+"4,15 ✘✔✘ ")
-		xchat.command("SETTEXT "+"")
-		return xchat.EAT_XCHAT
+	if (word[0] == "65293") and (msg_input!=""): #65293 is the return key
+		if msg_input[0]!="/":
+			xchat.command("SAY "+chr(3)+"4,15 ✘✔✘ "+chr(3)+"9,1 "+msg_input+" "+chr(3)+"4,15 ✘✔✘ ")
+			xchat.command("SETTEXT "+"")
+			return xchat.EAT_XCHAT
 	else:
 		return
 
@@ -84,7 +85,7 @@ def is_msg_color(word,word_eol,userdata):
 		color_hook=xchat.hook_print("Key Press",msg_color)
 		print("coloring")
 		return xchat.EAT_ALL
-	return
+	return xchat.EAT_ALL
 
 color_hook=xchat.hook_print("Key Press",msg_color) #notice that the coloring of the text is already enabled after loading the script
 xchat.hook_command("CACTIVE",is_msg_color,help="enables coloring text before sending the message")
