@@ -6,6 +6,34 @@ __module_version__ = "1.1"
 __module_description__ = "Bundle of commands"
 
 flood_message = ""
+join_flood_e = 0
+join_flood_time = 0
+
+def join_flood(word,word_eol,userdata):
+	global join_flood_e
+	global join_flood_time
+	join_flood_e = join_flood_e + 1
+	if join_flood_e==1:
+		join_flood_time = time.localtime()[4]*60+time.localtime()[5]
+	if join_flood_e>3:
+		if (time.localtime()[4]*60+time.localtime()[5])-join_flood_time<10:
+			xchat.command("QUIT")
+		join_flood_time = 0
+		join_flood_e = 0
+	return xchat.EAT_NONE
+
+def join_flood_en(word,word_eol,userdata):
+	global join_flood_hook
+	join_flood_hook = xchat.hook_print("You Join",join_flood)
+	print("Join flood enabled")
+	return xchat.EAT_ALL
+
+def join_flood_dis(word,word_eol,userdata):
+	join_flood_e = 0
+	join_flood_time = 0
+	xchat.unhook(join_flood_hook)
+	print("Join flood disabled")
+	return xchat.EAT_ALL
 
 def color_spam(word,word_eol,userdata):
 	cspam_msg=""
@@ -87,6 +115,8 @@ def is_msg_color(word,word_eol,userdata):
 		return xchat.EAT_ALL
 	return xchat.EAT_ALL
 
+xchat.hook_command("JOINFE",join_flood_en,help="Enables join flood")
+xchat.hook_command("JOINFD",join_flood_dis,help="Disables join flood")
 color_hook=xchat.hook_print("Key Press",msg_color) #notice that the coloring of the text is already enabled after loading the script
 xchat.hook_command("CACTIVE",is_msg_color,help="enables coloring text before sending the message")
 xchat.hook_command("DACTIVE",not_msg_color,help="turns off coloring of the text")
