@@ -6,7 +6,7 @@ __module_version__ = "1.1"
 __module_description__ = "Bundle of commands"
 
 flood_message = ""
-join_flood_e = 0
+join_flood_e = -1
 join_flood_time = 0
 
 def join_flood(word,word_eol,userdata):
@@ -24,15 +24,21 @@ def join_flood(word,word_eol,userdata):
 
 def join_flood_en(word,word_eol,userdata):
 	global join_flood_hook
-	join_flood_hook = xchat.hook_print("You Join",join_flood)
-	print("Join flood enabled")
+	global join_flood_e
+	if join_flood_e==-1:
+		join_flood_e = 0
+		join_flood_hook = xchat.hook_print("You Join",join_flood)
+		print("Join flood enabled")
 	return xchat.EAT_ALL
 
 def join_flood_dis(word,word_eol,userdata):
-	join_flood_e = 0
-	join_flood_time = 0
-	xchat.unhook(join_flood_hook)
-	print("Join flood disabled")
+	global join_flood_e
+	global join_flood_time
+	if join_flood_e>-1:
+		join_flood_e = -1
+		join_flood_time = 0
+		xchat.unhook(join_flood_hook)
+		print("Join flood disabled")
 	return xchat.EAT_ALL
 
 def color_spam(word,word_eol,userdata):
@@ -101,15 +107,15 @@ def msg_color(word,word_eol,userdata):
 		return
 
 def not_msg_color(word,word_eol,userdata):
-	xchat.unhook(color_hook)
 	global color_hook
+	xchat.unhook(color_hook)
 	color_hook="OFF"
 	print("uncoloring")
 	return xchat.EAT_ALL
 
 def is_msg_color(word,word_eol,userdata):
+	global color_hook
 	if color_hook=="OFF":
-		global color_hook
 		color_hook=xchat.hook_print("Key Press",msg_color)
 		print("coloring")
 		return xchat.EAT_ALL
