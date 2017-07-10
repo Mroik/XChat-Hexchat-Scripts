@@ -80,8 +80,12 @@ def flood_stop(word,word_eol,userdata):
 
 def hello(word,word_eol,userdata):
 	nicks = xchat.get_list("users")
-	for x in nicks:
-		xchat.command("FAINA "+str(x.nick)+": "+word_eol[1])
+	if color_hook != "OFF":
+		for x in nicks:
+			xchat.command("FAINA "+str(x.nick)+": "+word_eol[1])
+	else:
+		for x in nicks:
+			xchat.command("SAY "+str(x.nick)+": "+word_eol[1])
 	return xchat.EAT_ALL
 
 def hello2(word,word_eol,userdata):
