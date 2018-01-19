@@ -2,10 +2,11 @@ import xchat
 import time
 
 __module_name__ = "Bundle"
-__module_version__ = "1.1"
+__module_version__ = "1.2"
 __module_description__ = "Bundle of commands"
 
 flood_message = ""
+flood_context= []
 join_flood_e = -1
 join_flood_time = 0
 
@@ -61,15 +62,19 @@ def flooding(userdata):
 	if flood_message=="":
 		return 0
 	else:
-		xchat.command("SAY "+flood_message)
+                for x in flood_context:
+                        x.command("SAY "+flood_message)
 		return 1
 
 def flood_start(word,word_eol,userdata):
 	global flood_message
 	flood_message=word_eol[2]
 	global myflooder
+	global flood_context
+	flood_context = flood_context+[xchat.get_context()]
 	print("Starting the flooder...")
-	myflooder=xchat.hook_timer(int(float(word[1])*1000),flooding)
+	if len(flood_context) == 1:
+                myflooder=xchat.hook_timer(int(float(word[1])*1000),flooding)
 	return xchat.EAT_ALL
 
 def flood_stop(word,word_eol,userdata):
