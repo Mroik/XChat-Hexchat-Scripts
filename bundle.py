@@ -78,6 +78,8 @@ def flood_start(word,word_eol,userdata):
 	return xchat.EAT_ALL
 
 def flood_stop(word,word_eol,userdata):
+        global flood_context
+        flood_context=[]
 	global flood_message
 	flood_message=""
 	print("Stopping the flooder...")
