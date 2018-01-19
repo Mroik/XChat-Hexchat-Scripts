@@ -49,7 +49,7 @@ def color_spam(word,word_eol,userdata):
 			cspam_msg=cspam_msg+chr(3)+word[1]+","+word[2]+word_eol[3]
 		else:
 			cspam_msg=cspam_msg+chr(3)+word[2]+","+word[1]+word_eol[3]
-	xchat.command("SAY "+cspam_msg)
+                xchat.command("SAY "+cspam_msg)
 	return xchat.EAT_ALL
 
 def allctcp(word,word_eol,userdata):
