@@ -134,7 +134,7 @@ def is_msg_color(word,word_eol,userdata):
 
 xchat.hook_command("JOINFE",join_flood_en,help="Enables join flood")
 xchat.hook_command("JOINFD",join_flood_dis,help="Disables join flood")
-color_hook=xchat.hook_print("Key Press",msg_color) #notice that the coloring of the text is already enabled after loading the script
+#color_hook=xchat.hook_print("Key Press",msg_color) uncomment to enable coloring on load
 xchat.hook_command("CACTIVE",is_msg_color,help="enables coloring text before sending the message")
 xchat.hook_command("DACTIVE",not_msg_color,help="turns off coloring of the text")
 xchat.hook_command("PHRASE",hello,help="PHRASE <string>")
