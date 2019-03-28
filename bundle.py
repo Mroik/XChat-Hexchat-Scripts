@@ -104,7 +104,7 @@ def hello2(word,word_eol,userdata):
 	return xchat.EAT_ALL
 
 def what_time(word,word_eol,userdata):
-	xchat.command("SAY It's "+str(time.localtime()[3])+":"+str(time.localtime()[4])+" GMT+2")
+	xchat.command("SAY It's "+str(time.localtime()[3])+":"+str(time.localtime()[4]))
 	return xchat.EAT_ALL
 
 def msg_color(word,word_eol,userdata):
